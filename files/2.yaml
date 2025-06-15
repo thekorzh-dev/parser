@@ -1,0 +1,142 @@
+app:
+  name: SuperApp
+  version: 1.3.7
+  date: !!timestamp 2023-01-01
+  tags:
+    - productivity
+    - AI
+    - cloud
+  metadata:
+    authors:
+      - Alice Johnson
+      - Bob Smith
+    contributors:
+      - name: Catherine
+        role: devops
+        salary: 100000
+      - name: Dave
+        role: frontend
+        salary: 234
+
+features:
+  enabled:
+    - auth
+    - billing
+    - chat
+  beta:
+    dark_mode: true
+    multi_language: false
+  experimental_features:
+    - name: smart_search
+      description: "AI-powered search"
+      rollout: 30%
+    - name: voice_commands
+      description: "Control with voice"
+      rollout: 5%
+
+services:
+  auth:
+    endpoints:
+      login: /api/login
+      logout: /api/logout
+      refresh: /api/refresh
+    methods:
+      - POST
+      - GET
+  analytics:
+    providers:
+      - name: Mixpanel
+        api_key: abc123
+      - name: GoogleAnalytics
+        api_key: xyz456
+    enabled_metrics:
+      user_sessions: true
+      click_rate: true
+      heatmaps: false
+
+users:
+  default_roles:
+    - user
+    - viewer
+  roles_permissions:
+    admin:
+      - read
+      - write
+      - delete
+    user:
+      - read
+      - write
+    guest:
+      - read
+
+security:
+  jwt_secrets:
+    - key: secret1
+      expires_in: 3600
+    - key: secret2
+      expires_in: 7200
+  allowed_ips:
+    internal:
+      - 192.168.0.1
+      - 192.168.0.2
+    external:
+      - 34.23.11.12
+      - 52.12.65.34
+
+scheduler:
+  tasks:
+    - name: clean_temp
+      interval: 1h
+      retry: 3
+    - name: generate_report
+      interval: 6h
+      retry: 1
+  retry_policy:
+    backoff: exponential
+    max_retries: 5
+
+environments:
+  dev:
+    url: http://localhost:3000
+    debug: true
+    services:
+      - auth
+      - database
+  prod:
+    url: https://app.example.com
+    debug: false
+    services:
+      - auth
+      - analytics
+      - billing
+
+notifications:
+  channels:
+    email:
+      enabled: true
+      templates:
+        - welcome_email
+        - password_reset
+    sms:
+      enabled: false
+    push:
+      enabled: true
+  fallback_order:
+    - push
+    - email
+    - sms
+
+localization:
+  supported:
+    - en
+    - fr
+    - de
+    - ja
+  default: en
+  messages:
+    en:
+      greeting: "Hello"
+      farewell: "Goodbye"
+    fr:
+      greeting: "Bonjour"
+      farewell: "Au revoir"
